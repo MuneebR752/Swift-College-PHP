@@ -5,11 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Validation</title>
-  <style>
-    .errorMsgs {
-      color: red;
-    }
-  </style>
 </head>
 
 <body>
@@ -84,14 +79,48 @@
 <?php
 
 if (isset($_POST["submit"])) {
-  echo $_POST["name"] . "<br>";
-  echo $_POST["email"] . "<br>";
-  echo $_POST["password"] . "<br>";
-  echo $_POST["gender"] . "<br>";
-  echo $_POST["age"] . "<br>";
-  echo $_POST["country"] . "<br>";
-  echo $_POST["bio"] . "<br>";
 
-  print_r($_POST["hobbies"]);
+  $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+  if (strlen($name) <= 2) {
+    echo "Name is too Short";
+    return;
+  }
+
+  $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+
+  $password = $_POST["password"];
+
+  $gender = $_POST["gender"];
+
+  $age = filter_input(INPUT_POST, "age", FILTER_SANITIZE_NUMBER_INT);
+
+  $hobbies = $_POST["hobbies"];
+
+  $country = $_POST["country"];
+
+  $bio = filter_input(INPUT_POST, "bio", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+
+  echo $name . "<br>";
+  echo $email . "<br>";
+  echo $password . "<br>";
+  echo $gender . "<br>";
+  echo $age . "<br>";
+  echo $country . "<br>";
+  echo $bio . "<br>";
+  print_r($hobbies);
+
+  echo "<br>";
+
+
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+  echo $hashed_password . "<br>";
 }
 ?>
+
+<!-- <script>
+  alert("Your are Hacked");
+</script> -->
