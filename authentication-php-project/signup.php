@@ -57,7 +57,20 @@ if (isset($_POST["signup"])) {
     $password = $_POST["password"];
     $age = $_POST["age"];
     $bio = $_POST["bio"];
+
+
+    $sql = "INSERT INTO users (name, email, password, age, bio) VALUES ('{$name}', '{$email}', '{$password}', '{$age}', '{$bio}')";
+
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        echo "User Inserted Successfully";
+    } else {
+        echo "Failed to add the User";
+    }
 }
+
+
 ?>
 
 </html>
