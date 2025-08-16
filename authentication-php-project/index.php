@@ -11,6 +11,13 @@ include("db.php");
     <title>Document</title>
 </head>
 
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+</style>
+
 <body>
     <h1>Welcome to Our Home Page</h1>
 
@@ -28,6 +35,8 @@ include("db.php");
                     <th>age</th>
                     <th>bio</th>
                     <th>Created At</th>
+                    <th colspan = '2'>Actions</th>
+
                 </tr></thead><tbody>";
 
             while ($row = mysqli_fetch_assoc($result)) {
@@ -39,6 +48,8 @@ include("db.php");
                         <td>{$row['age']}</td>
                         <td>{$row['bio']}</td>
                         <td>{$row['createdAt']}</td>
+                        <td> <button onclick='updatePassword({$row['id']})'> Update Password </button> </td>
+                        <td> <button onclick='deleteUser({$row['id']})'> Delete </button> </td>
                     </tr>";
             }
 
@@ -50,6 +61,16 @@ include("db.php");
 
 
     </table>
+
+    <script>
+        function deleteUser(userId) {
+            location.href = `deleteUser.php?id=${userId}`
+        }
+
+        function updatePassword(userId) {
+            location.href = `updatePassword.php?id=${userId}`
+        }
+    </script>
 </body>
 
 </html>
